@@ -1,0 +1,79 @@
+# For macOS
+if [[ -z $(lsb_release --description | grep Deb) ]];then
+    PM=brew
+else
+    PM='sudo apt'
+fi
+# Setup homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# Setup Essential
+brew install wget curl sqlite3 openssl xz zlib git
+
+# Setup git
+git config --global user.name secf4ult
+git config --global user.email "secf4ult@outlook.com"
+
+# Clone dotfiles
+git clone https://github.com/secf4ult/dotfiles $HOME/.dotfiles
+DOTFILES="$HOME/.dotfiles"
+
+# Setup development environment
+# Setup nodenv, pyenv, rbenv
+brew install nodenv
+brew install pyenv
+brew install rbenv
+# Setup rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Setup zsh
+brew install zsh
+ln -fs $DOTFILES/.zshrc $HOME/.zshrc
+ln -fs $DOTFILES/.zshenv $HOME/.zshenv
+ln -fs $DOTFILES/.p10k.zsh $HOME/.p10k.zsh
+
+# Setup tmux
+brew install tmux
+ln -fs $DOTFILES/.tmux_conf $HOME/.tmux.conf
+
+# Setup vim
+ln -fs $DOTFILES/.vimrc $HOME/.vimrc
+# Setup vundle
+git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+
+# Setup docker
+brew install docker
+
+# Setup fonts
+brew tap homebrew/cask-fonts
+brew cask install font-meslo-nerd-font-mono font-firacode-nerd-font
+
+# Setup apps
+brew install ripgrep
+
+# Setup aria2
+brew install aria2c
+mkdir -p $HOME/.aria2
+ln -fs $DOTFILES/aria2/aria2.conf $HOME/.aria2/aria2.conf
+
+# Setup gui apps
+bred tap homebrew/cask-versions
+brew cask install firefox-developer-edition visual-studio-code clashx \
+                  microsoft-edge-dev google-chrome-dev wireshark postman \
+                  safari-technology-preview iterm2 mpv java
+
+# Setup vscode
+mkdir -p $HOME/Library/Application\ Support/Code/User
+ln -fs DOTFILES/vscode/settings $HOME/Library/Application\ Support/Code/User/settings.json
+
+# Setup clashx
+mkdir -p $HOME/.config/clash
+ln -fs DOTFILES/clash/clashx-mac.yaml $HOME/.config/clash/clashx-mac.yaml
+
+# Setup mpv
+mkdir -p $HOME/.config/mpv
+ln -fs DOTFILES/mpv/mpv.conf $HOME/.config/mpv/mpv.conf
+ln -fs DOTFILES/mpv/input.conf $HOME/.config/mpv/input.conf
+
+# Setup transmission
+brew cask install transmission
