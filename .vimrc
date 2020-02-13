@@ -72,6 +72,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 highlight Search ctermbg=white ctermfg=black
 set cursorline
 
+" matchpairs
+:set mps+=<:>,`:`
+:au FileType c,cpp,java set mps+==:;
+
 " Plugin Settings
 " set statusline plugin
 set laststatus=2

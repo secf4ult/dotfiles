@@ -57,6 +57,10 @@ alias tmux='nocorrect tmux'
 alias tn='tmux new'
 alias tas='ta -A -s'
 
+# xargs
+alias xt='xargs -t'
+alias xp='xargs -p'
+
 # lazy load rbenv
 rbenv() {
     if [[ -z $RBENV_ROOT ]] ; then
