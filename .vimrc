@@ -34,6 +34,7 @@ Plugin 'itchyny/lightline.vim'
 " Plugin 'valloric/youcompleteme'
 Plugin 'justinmk/vim-sneak'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'rhysd/wandbox-vim'
 " Run :PluginInstall to install plugins
 
 " All of your Plugins must be added before the following line

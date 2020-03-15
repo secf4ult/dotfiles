@@ -61,6 +61,9 @@ alias tas='ta -A -s'
 alias xt='xargs -t'
 alias xp='xargs -p'
 
+# sed
+alias sede='sed -r'
+
 # lazy load rbenv
 rbenv() {
     if [[ -z $RBENV_ROOT ]] ; then

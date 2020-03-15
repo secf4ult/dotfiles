@@ -1,4 +1,4 @@
-# Description: WinStarter
+# Description: Setup Windows 10 environment
 # Author: secf4ult
 # Last Update: 2018-4-6
 #
@@ -6,8 +6,8 @@
 
 Set-ExecutionPolicy Unrestricted -Force
 
-# ---- Install Chocolatey ----
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+# ---- Install Scoop  ----
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
 # Disable-UAC
 Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA  -Value 0
@@ -21,11 +21,8 @@ Get-AppxPackage Microsoft.Messaging | Remove-AppxPackage
 Get-AppxPackage Microsoft.ZuneMusic | Remove-AppxPackage
 Get-AppxPackage Microsoft.ZuneVideo | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
-# 3D Paint
 Get-AppxPackage Microsoft.MSPaint | Remove-AppxPackage
-# Camera
 Get-AppxPackage Microsoft.WindowsCamera | Remove-AppxPackage
-# Immersive Reader
 Get-AppxPackage Microsoft.ImmersiveReader | Remove-AppxPackage
 
 # File Explorer:
@@ -61,20 +58,27 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -N
 # Enable Developer Mode
 New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWORD -Value 1
 
-# ---- Windows Subsystems/Features ----
-# choco install Microsoft-Hyper-V-All -source windowsFeatures
-choco install Microsoft-Windows-Subsystem-Linux -source windowsfeatures
-
 #--- Apps ---
-cinst googlechrome -y
-cinst python3 -y
-cinst visualstudiocode -y
-cinst mpc-be -y
-cinst git -y
-cinst firacode -y
-cinst wireshark -y
-# choco install docker-for-windows -y
-# choco install vcxsrv -y
+scoop install aria2
+scoop install sudo grep sed less touch ln curl wget
+scoop install git 7zip openssh nmap docker
+# font
+scoop bucket add nerd-fonts
+scoop install FiraCode-NF Meslo-NF
+# nirsoft
+scoop bucket add nirsoft
+# scoop install
+# java
+scoop bucket add java
+scoop install openjdk
+# gui apps
+scoop bucket add extras
+scoop install chromium-dev-nosync firefox-developer mpv wireshark steam vscodium-portable
+
+# # Setup Powershell
+# Install-Module -Name PowerShellGet -Force
+# Install-Module -Name posh-git -Scope CurrentUser -Force
+# Install-Module -Name oh-my-posh -Scope CurrentUser -Force
 
 # ---- Restore Temporary Settings ----
 # Enable-UAC
@@ -82,6 +86,13 @@ Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\
 # Enable-MicrosoftUpdate
 # Install-WindowsUpdate -acceptEula
 Set-ExecutionPolicy RemoteSigned -Force
+
+# Config the scoop
+scoop config proxy 127.0.0.1:7890
+# Config powershell
+scoop install concfg
+concfg import solarized-dark -y
+
 
 # ---- Rename the Computer ----
 # Requires restart, or add the -Restart flag
