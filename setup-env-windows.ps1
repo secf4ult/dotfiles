@@ -65,7 +65,7 @@ Set-ItemProperty -Path $dockingKey -Name Settings -Value ([byte[]] (0x28,0x00,0x
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name BingSearchEnabled -Type DWord -Value 0
 
 # Enable Developer Mode
-# New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWORD -Value 1
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWORD -Value 1
 
 #--- Apps ---
 scoop install sudo grep sed less touch ln curl wget
@@ -83,6 +83,10 @@ scoop install chromium-dev-nosync firefox-developer mpv wireshark steam vscodium
 # Install-Module -Name PowerShellGet -Force
 # Install-Module -Name posh-git -Scope CurrentUser -Force
 # Install-Module -Name oh-my-posh -Scope CurrentUser -Force
+
+# Windows Terminal Settings
+# TODO
+# New-Item -Path C:\Users\secf4ult\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -ItemType SymbolicLink -Value C:\Users\secf4ult\.dotfiles\windows-terminal-settings.json
 
 # Install Windows Subsystem for Linux
 # build 20262 or higher

@@ -1,31 +1,34 @@
-#!/bin/sh
+#!/bin/bash
 # Getting Ready
 LOGDIR="~/log"
 DOTFILES="~/.dotfiles"
 
 # Update & Upgrade
-sudo apt-get update -y
-sudo apt-get upgrade -y
+#sudo apt-get update -y
+#sudo apt-get upgrade -y
 
 # Setup Prerequisite
-sudo apt install -qy software-properties-common build-essential autotools \
-                     install-info wget curl man git sqlite3 openssl llvm make \
-sudo apt install -qy libssl-dev libbz2-dev libsqlite3-dev libreadline-dev \
-                     zlib1g-dev libncurses5-dev libncursesw5-dev xz-utils \
-                     tk-dev libffi-dev liblzma-dev python-openssl libssl1.0-dev
+#sudo apt install -qy software-properties-common build-essential autotools \
+#                     install-info wget curl man git sqlite3 openssl llvm make \
+#sudo apt install -qy libssl-dev libbz2-dev libsqlite3-dev libreadline-dev \
+#                     zlib1g-dev libncurses5-dev libncursesw5-dev xz-utils \
+#                     tk-dev libffi-dev liblzma-dev python-openssl libssl1.0-dev
 
 # Setup git
 git config --global user.email "secf4ult@outlook.com"
 git config --global user.name "secf4ult"
 
 # Clone dotfiles
-git clone https://github.com/secf4ult/dotfiles ~/.dotfiles
+if [[ ! -d ~/.dotfiles ]];then
+    git clone https://github.com/secf4ult/dotfiles ~/.dotfiles
+fi
 cd ~/.dotfiles && git submodule update --init --recursive --remote
 
 # Create folders
-mkdir ~/local
-mkdir ~/projects
-mkdir ~/log
+mkdir -p ~/local
+mkdir -p ~/repos
+mkdir -p ~/log
+mkdir -p ~/tmp
 export PATH=$PATH:~/local/bin
 
 # If system is wsl
@@ -38,6 +41,7 @@ if grep -q Microsoft /proc/version; then
 fi
 
 # Setup Bash
+echo 'Setup Bash'
 ln -fs ~/.dotfiles/.bashrc ~/.bashrc
 ln -fs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 ln -fs ~/.dotfiles/.bash_profile ~/.bash_profile
@@ -45,68 +49,79 @@ ln -fs ~/.dotfiles/.bash_aliases ~/.bash_aliases
 
 # Setup Zsh
 ## Setup zsh
+echo 'Setup zsh'
 cd ~/tmp && curl -L -o zsh.tar.xz "https://sourceforge.net/projects/zsh/files/latest/download"
 tar xf zsh.tar.xz
 cd ~/tmp/zsh-*
 ./configure --prefix="$HOME/local" CPPFLAGS="-I$HOME/local/include" \
             LDFLAGS="-L$HOME/local/lib"
 make -j >~/log/zsh.make.log && make install >~/log/zsh.install.log
+cd
+
 ## Setup Oh-my-zsh
+echo 'Setup Oh-my-zsh'
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >~/log/oh-my-zsh.log
 ln -fs ~/.dotfiles/.zshrc ~/.zshrc
 ln -fs ~/.dotfiles/.zshenv ~/.zshenv
 
 # Setup Utilities
 ## Setup Vim
-git clone --depth 1 https://github.com/vim/vim.git ~/tmp/vim/src
-cd ~/tmp/vim/src
-make --silent
-sudo make install --silent
+echo 'Setup Vim'
+#jit clone --depth 1 https://github.com/vim/vim.git ~/tmp/vim/src
+#cd ~/tmp/vim/src
+#sudo make install --silent
 ### link vim
 ln -fs ~/.dotfiles/.vimrc ~/.vimrc
 ### install vundle
-git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [[ ! -d ~/.vim/bundle/Vundle.vim ]];then
+    git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+### install vundle plugins
+vim -c ':PluginInstall' -c ':qa'
 cd
 
-## Setup Tmux
-git clone --depth 1 https://github.com/tmux/tmux.git ~/tmp/tmux
-cd ~/tmp/tmux
-sh autogen.sh >$LOGDIR/tmux.autogen.log
-./configure >$LOGDIR/tmux.conf.log && make >$LOGDIR/tmux
-### tpm
-git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf
+### Setup Tmux
+#git clone --depth 1 https://github.com/tmux/tmux.git ~/tmp/tmux
+#cd ~/tmp/tmux
+#sh autogen.sh >$LOGDIR/tmux.autogen.log
+#./configure >$LOGDIR/tmux.conf.log && make >$LOGDIR/tmux
+#### tpm
+#git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+#ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf
 
 ## Setup Sqlite
-ln -fs ~/.dotfiles/.sqliterc ~/.sqliterc
+#ln -fs ~/.dotfiles/.sqliterc ~/.sqliterc
 
 ## Setup screenfetch
 cd ~/local/bin && curl -LO https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev
 chmod u+x ~/local/bin/screenfetch
 
 ## Setup rbenv
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-cd ~/.rbenv && src/configure && make -C src
-mkdir -p ~/.rbenv/plugins
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+#git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+#cd ~/.rbenv && src/configure && make -C src
+#mkdir -p ~/.rbenv/plugins
+#git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 ## Setup pyenv
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+#git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
-## Setup nodenv
-git clone https://github.com/nodenv/nodenv.git ~/.nodenv
-cd ~/.nodenv && src/configure && make -C src
-mkdir -p ~/.nodenv/plugins
-git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
+# ## Setup nodenv
+# git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+# cd ~/.nodenv && src/configure && make -C src
+# mkdir -p ~/.nodenv/plugins
+# git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
+
+## install volta
+curl https://get.volta.sh | bash
 
 ### Setup ripgrep
 cd ~/tmp && curl -sLO $(curl -s https://api.github.com/repos/BurntSushi/ripgrep/releases/latest | grep browser_download_url.*amd64 | cut -d'"' -f4)
 sudo dpkg -i ripgrep*
 
 ### Setup aria2
-sudo apt install aria2
-md ~/.aria2
-ln -fs $DOTFILES/aria2/aria2.conf ~/.aria2/aria2.conf
+#sudo apt install aria2
+#md ~/.aria2
+#ln -fs $DOTFILES/aria2/aria2.conf ~/.aria2/aria2.conf
 
 
 # Cleaning
