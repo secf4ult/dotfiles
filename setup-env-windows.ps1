@@ -14,16 +14,25 @@ Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\
 
 # ---- WINDOWS SETTINGS ----
 # UNINSTALL
-Get-AppxPackage Microsoft.WindowsMaps | Remove-AppxPackage
-Get-AppxPackage Microsoft.WindowsAlarms | Remove-AppxPackage
-Get-AppxPackage Microsoft.WindowsSoundRecorder | Remove-AppxPackage
+Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingNews | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingSports | Remove-AppxPackage
+Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
+Get-AppxPackage Microsoft.ImmersiveReader | Remove-AppxPackage
 Get-AppxPackage Microsoft.Messaging | Remove-AppxPackage
+Get-AppxPackage Microsoft.MicrosoftSolitaireCollection | Remove-AppxPackage
+Get-AppxPackage Microsoft.MixedReality.Portal | Remove-AppxPackage
+Get-AppxPackage Microsoft.Microsoft3DViewer | Remove-AppxPackage
+Get-AppxPackage Microsoft.MSPaint | Remove-AppxPackage
+Get-AppxPackage Microsoft.Print3D | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsAlarms | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsCamera | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsMaps | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsFeedbackHub | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsSoundRecorder | Remove-AppxPackage
 Get-AppxPackage Microsoft.ZuneMusic | Remove-AppxPackage
 Get-AppxPackage Microsoft.ZuneVideo | Remove-AppxPackage
-Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
-Get-AppxPackage Microsoft.MSPaint | Remove-AppxPackage
-Get-AppxPackage Microsoft.WindowsCamera | Remove-AppxPackage
-Get-AppxPackage Microsoft.ImmersiveReader | Remove-AppxPackage
 
 # File Explorer:
 # Displays file extentsion
@@ -41,7 +50,7 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 
 # Taskbar:
 # Taskbar small icons
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarSmallIcons -Type DWord
+# Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarSmallIcons -Type DWord
 # Dock taskbar top
 # from: https://github.com/chocolatey/boxstarter/blob/master/Boxstarter.WinConfig/Set-TaskbarOptions.ps1
 # the 9th byte in StuckRects?/Settings controls taskbar, for what meaning every bit represents refer to: http://www.dabcc.com/deciphering-stuckrects2/
@@ -56,10 +65,9 @@ Set-ItemProperty -Path $dockingKey -Name Settings -Value ([byte[]] (0x28,0x00,0x
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name BingSearchEnabled -Type DWord -Value 0
 
 # Enable Developer Mode
-New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWORD -Value 1
+# New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -Name AllowDevelopmentWithoutDevLicense -Type DWORD -Value 1
 
 #--- Apps ---
-scoop install aria2
 scoop install sudo grep sed less touch ln curl wget
 scoop install git 7zip openssh nmap docker
 # font
@@ -67,18 +75,23 @@ scoop bucket add nerd-fonts
 scoop install FiraCode-NF Meslo-NF
 # nirsoft
 scoop bucket add nirsoft
-# scoop install
-# java
-scoop bucket add java
-scoop install openjdk
 # gui apps
 scoop bucket add extras
 scoop install chromium-dev-nosync firefox-developer mpv wireshark steam vscodium-portable
 
-# # Setup Powershell
+# Setup Powershell
 # Install-Module -Name PowerShellGet -Force
 # Install-Module -Name posh-git -Scope CurrentUser -Force
 # Install-Module -Name oh-my-posh -Scope CurrentUser -Force
+
+# Install Windows Subsystem for Linux
+# build 20262 or higher
+# wsl --install
+# Manual steps: https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+# wsl --set-default-version 2
 
 # ---- Restore Temporary Settings ----
 # Enable-UAC
