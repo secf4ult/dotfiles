@@ -1,9 +1,5 @@
-# For macOS
-if [[ -z $(lsb_release --description | grep Deb) ]];then
-    PM=brew
-else
-    PM='sudo apt'
-fi
+#!/bin/env sh
+
 # Setup homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
