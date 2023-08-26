@@ -20,6 +20,10 @@ install() {
 # setup develop environment
 install com.visualstudio.code
 install io.podman_desktop.PodmanDesktop
+# podman
+# uninstall:
+# curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman | sh -s -- --prefix ~/.local --remove
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman | sh -s -- --prefix ~/.local
 
 # setup entertainment
 install sh.cider.Cider
