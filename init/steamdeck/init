@@ -1,0 +1,26 @@
+# danger: you can turnoff steamdeck's read-only system image by
+# sudo steamos-readonly disable
+
+install() {
+  echo "Do you want to install ${1}"
+  select yn in "Y" "N"; do
+    case $yn in
+      "Y") flatpak install -y flathub $1; break;;
+      "N") break;;
+    esac
+  done
+}
+
+# fix flatpak
+# sudo flatpak remote-delete flathub
+# sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# sudo flatpak remote-delete flathub-beta
+# sudo flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+
+# setup develop environment
+install com.visualstudio.code
+install io.podman_desktop.PodmanDesktop
+
+# setup entertainment
+install sh.cider.Cider
+install io.mpv.Mpv
