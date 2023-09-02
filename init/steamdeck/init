@@ -12,19 +12,27 @@ install() {
 }
 
 # fix flatpak
-# sudo flatpak remote-delete flathub
-# sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-# sudo flatpak remote-delete flathub-beta
-# sudo flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+sudo flatpak remote-delete flathub
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-delete flathub-beta
+sudo flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
 # setup develop environment
+# distrobox
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix ~/.local
+# podman
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman | sh -s -- --prefix ~/.local
+
 install com.visualstudio.code
 install io.podman_desktop.PodmanDesktop
-# podman
-# uninstall:
-# curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman | sh -s -- --prefix ~/.local --remove
-curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/extras/install-podman | sh -s -- --prefix ~/.local
+# homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install volta
 
 # setup entertainment
 install sh.cider.Cider
 install io.mpv.Mpv
+
+# post
+# /var/lib/flatpak/exports/bin: path for flatpak
+echo 'export PATH=$HOME/.local/bin:$HOME/.local/podman/bin:/var/lib/flatpak/exports/bin:$PATH' >> ~/.bashrc
