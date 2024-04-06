@@ -1,0 +1,5 @@
+#!/bin/env sh
+
+DOTFILES="$HOME/.dotfiles"
+
+ln -s

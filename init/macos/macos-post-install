@@ -3,6 +3,8 @@
 # Setup homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+brew tap homebrew/cask-fonts
+
 # Setup Essential
 brew install wget curl sqlite3 openssl xz zlib git
 
@@ -24,7 +26,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Setup zsh
 brew install zsh
-ln -fs $DOTFILES/.zshrc $HOME/.zshrc
+# Setup oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ln -fs $DOTFILES/zsh/.zshrc $HOME/.zshrc
 ln -fs $DOTFILES/.zshenv $HOME/.zshenv
 ln -fs $DOTFILES/.p10k.zsh $HOME/.p10k.zsh
 
@@ -38,33 +42,24 @@ ln -fs $DOTFILES/.vimrc $HOME/.vimrc
 git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
 # Setup docker
-brew install docker
+# brew install docker
 
 # Setup fonts
 brew tap homebrew/cask-fonts
-brew cask install font-meslo-nerd-font-mono font-firacode-nerd-font
+# brew cask install font-meslo-nerd-font-mono font-firacode-nerd-font
 
 # Setup apps
 brew install ripgrep
 
-# Setup aria2
-brew install aria2c
-mkdir -p $HOME/.aria2
-ln -fs $DOTFILES/aria2/aria2.conf $HOME/.aria2/aria2.conf
-
 # Setup gui apps
 bred tap homebrew/cask-versions
-brew cask install firefox-developer-edition visual-studio-code clashx \
+brew cask install visual-studio-code \
                   microsoft-edge-dev google-chrome-dev wireshark postman \
-                  safari-technology-preview iterm2 mpv java
+                  mpv
 
 # Setup vscode
 mkdir -p $HOME/Library/Application\ Support/Code/User
 ln -fs DOTFILES/vscode/settings $HOME/Library/Application\ Support/Code/User/settings.json
-
-# Setup clashx
-mkdir -p $HOME/.config/clash
-ln -fs DOTFILES/clash/clashx-mac.yaml $HOME/.config/clash/clashx-mac.yaml
 
 # Setup mpv
 mkdir -p $HOME/.config/mpv
