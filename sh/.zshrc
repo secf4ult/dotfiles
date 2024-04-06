@@ -18,4 +18,4 @@ then
 fi
 
 # Aliases
-source "$DOTFILES/zsh/.zsh_aliases"
+source "$DOTFILES/sh/.zsh_aliases"
