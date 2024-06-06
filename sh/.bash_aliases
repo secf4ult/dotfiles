@@ -66,4 +66,9 @@ alias sede='sed -r'
 
 # git
 alias gst='git status'
-alias gpu='git pull --rebase --autostash'
+alias gpu='git push'
+alias gpl='git pull --rebase --autostash'
+
+# docker
+# maven
+alias dmvn='docker run --rm -v "$(pwd)":/usr/src/mymaven -v mvn-repo:/root/.m2 -w /usr/src/mymaven maven mvn'

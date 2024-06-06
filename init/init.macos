@@ -1,0 +1,70 @@
+#!/bin/env sh
+export DOTFILES="$HOME/.dotfiles"
+
+# Setup homebrew
+if ! command -v brew &> /dev/null ;then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Setup git
+if ! command -v git &> /dev/null ;then
+    brew install git
+fi
+git config --global user.name secf4ult
+git config --global user.email "secf4ult@outlook.com"
+
+# Clone dotfiles
+if [[ ! -d $DOTFILES ]];then
+    git clone https://github.com/secf4ult/dotfiles $DOTFILES
+fi
+
+# Setup development environment
+# Setup rust
+if ! command -v rustc &> /dev/null ;then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+# Setup zsh
+if ! command -v zsh &> /dev/null ;then
+    brew install zsh
+fi
+# Setup zsh4humans
+if ! command -v z4h &> /dev/null ;then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+fi
+
+# Setup tmux
+if ! command -v tmux &> /dev/null ;then
+    brew install tmux
+fi
+
+# Setup vim
+if ! command -v vim &> /dev/null ;then
+    brew install vim
+fi
+if [[ ! -d $HOME/.vim/bundle/Vundle.vim ]];then
+    git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+fi
+
+# Setup docker
+if ! command -v docker &> /dev/null ;then
+    brew install docker
+fi
+
+# Setup fonts
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+
+# Setup apps
+brew install ripgrep
+
+# Setup gui apps
+bred tap homebrew/cask-sersions
+brew install --cask visual-studio-code \
+                    arc \
+                    wireshark \
+                    postman \
+                    mpv
+
+# Setup configs
+/bin/bash ./setup-links.unix

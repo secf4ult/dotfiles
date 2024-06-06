@@ -1,0 +1,35 @@
+#!/bin/bash
+
+DOTFILES="$HOME/.dotfiles"
+
+# bash
+if command -v bash &> /dev/null ;then
+    ln -fs $DOTFILES/sh/.bashrc $HOME/.bashrc
+    ln -fs $DOTFILES/sh/.bash_aliases $HOME/.bash_aliases
+    ln -fs $DOTFILES/sh/.bash_profile $HOME/.bash_profile
+    ln -fs $DOTFILES/sh/.bash_prompt $HOME/.bash_prompt
+fi
+
+# zsh
+if command -v zsh &> /dev/null ;then
+    ln -fs $DOTFILES/sh/.zshrc $HOME/.zshrc
+    ln -fs $DOTFILES/sh/.zsh_aliases $HOME/.zsh_aliases
+    ln -fs $DOTFILES/sh/.p10k.zsh $HOME/.p10k.zsh
+fi
+
+# mpv
+if command -v mpv &> /dev/null ;then
+    mkdir -p $HOME/.config/mpv
+    ln -fs $DOTFILES/mpv/mpv.conf $HOME/.config/mpv/mpv.conf
+    ln -fs $DOTFILES/mpv/input.conf $HOME/.config/mpv/input.conf
+fi
+
+# vim
+if command -v vim &> /dev/null ;then
+    ln -fs $DOTFILES/.vimrc $HOME/.vimrc
+fi
+
+# tmux
+if command -v tmux &> /dev/null ;then
+    ln -fs $DOTFILES/.tmux.conf $HOME/.tmux.conf
+fi
