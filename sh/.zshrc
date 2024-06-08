@@ -1,3 +1,6 @@
+# homebrew
+export PATH=/opt/homebrew/bin:$PATH
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -14,9 +17,6 @@ fi
 
 # set dotfiles env
 export DOTFILES="$HOME/.dotfiles"
-
-# homebrew
-export PATH=/opt/homebrew/bin:$PATH
 
 # volta
 if command -v volta &> /dev/null;then
@@ -40,7 +40,7 @@ fi
 
 # rust
 if command -v rustc &> /dev/null;then
-  export PATH="~/.cargo/bin:$PATH"
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # Aliases
@@ -48,3 +48,12 @@ source "$DOTFILES/sh/.zsh_aliases"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# run tmux on start-up
+if command -v tmux &> /dev/null && # if tmux existed
+    [ -n "$PS1" ] &&               # if interactive shell
+    [[ ! "$TERM" =~ screen ]] &&
+    [[ ! "$TERM" =~ tmux ]] &&
+    [ -z "$TMUX" ];then            # if tmux already runed
+  exec tmux
+fi
