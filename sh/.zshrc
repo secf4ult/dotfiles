@@ -50,10 +50,10 @@ source "$DOTFILES/sh/.zsh_aliases"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # run tmux on start-up
-if command -v tmux &> /dev/null && # if tmux existed
-    [ -n "$PS1" ] &&               # if interactive shell
-    [[ ! "$TERM" =~ screen ]] &&
-    [[ ! "$TERM" =~ tmux ]] &&
-    [ -z "$TMUX" ];then            # if tmux already runed
-  exec tmux
-fi
+# if command -v tmux &> /dev/null && # if tmux existed
+#     [ -n "$PS1" ] &&               # if interactive shell
+#     [[ ! "$TERM" =~ screen ]] &&
+#     [[ ! "$TERM" =~ tmux ]] &&
+#     [ -z "$TMUX" ];then            # if tmux already runed
+#   exec tmux
+# fi

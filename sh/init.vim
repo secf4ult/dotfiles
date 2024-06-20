@@ -1,17 +1,24 @@
+" vim-plug
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'scrooloose/nerdtree'
+Plug 'flazz/vim-colorschemes'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'justinmk/vim-sneak'
+Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
+Plug 'rhysd/wandbox-vim'
+Plug 'ellisonleao/gruvbox.nvim'
+
+call plug#end()
+
+" my config
 set encoding=UTF-8
 set nocompatible              " be improved, required
 filetype off                  " required
-
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'flazz/vim-colorschemes'
-" Plugin 'editorconfig/editorconfig-vim'
-" Plugin 'itchyny/lightline.vim'
-" Plugin 'neoclide/coc.nvim'
-" Plugin 'justinmk/vim-sneak'
-" Plugin 'ryanoasis/vim-devicons'
-" Plugin 'sheerun/vim-polyglot'
-" Plugin 'rhysd/wandbox-vim'
-" Run :PluginInstall to install plugins
 
 " turn on filetype detection, load "ftplugin.vim" and "indent.vim"
 syntax on
@@ -49,3 +56,7 @@ set cursorline
 " set statusline plugin
 set laststatus=2
 set noshowmode
+
+" Theme
+set background=dark " or light
+colorscheme gruvbox
