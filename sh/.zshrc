@@ -57,3 +57,6 @@ source "$DOTFILES/sh/.zsh_aliases"
 #     [ -z "$TMUX" ];then            # if tmux already runed
 #   exec tmux
 # fi
+
+# setup for miniconda
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"

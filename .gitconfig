@@ -1,0 +1,10 @@
+[pull]
+	rebase = true
+[user]
+	name = secf4ult
+	email = secf4ult@outlook.com
+[alias]
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    hidden = !git ls-files -v | grep '^h' | cut -c3-
+    unhide-all = !git ls-files -v | grep '^h' | cut -c3- | xargs git unhide --
