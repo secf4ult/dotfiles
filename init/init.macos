@@ -10,8 +10,6 @@ fi
 if ! command -v git &> /dev/null ;then
     brew install git
 fi
-git config --global user.name secf4ult
-git config --global user.email "secf4ult@outlook.com"
 
 # Clone dotfiles
 if [[ ! -d $DOTFILES ]];then
