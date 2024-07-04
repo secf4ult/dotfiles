@@ -43,6 +43,11 @@ if command -v rustc &> /dev/null;then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# go
+if command -v go &> /dev/null;then
+  export PATH="$HOME/go/bin:$PATH"
+fi
+
 # Aliases
 source "$DOTFILES/sh/.zsh_aliases"
 
@@ -57,3 +62,9 @@ source "$DOTFILES/sh/.zsh_aliases"
 #     [ -z "$TMUX" ];then            # if tmux already runed
 #   exec tmux
 # fi
+
+# setup for miniconda
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
+# setup for direnv
+eval "$(direnv hook zsh)"

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 DOTFILES="$HOME/.dotfiles"
+# git
+ln -fs $DOTFILES/.gitconfig ~/.gitconfig
 
 # bash
 if command -v bash &> /dev/null ;then
