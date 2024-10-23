@@ -1,7 +1,6 @@
 **/.DS_Store
 zsh/zsh*
-asf/*.db
-asf/*.cache
-asf/*.json
+asf/*
 !asf/ASF.json
+!asf/IPC.config
 home_assistant
