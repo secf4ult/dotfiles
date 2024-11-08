@@ -64,7 +64,11 @@ source "$DOTFILES/sh/.zsh_aliases"
 # fi
 
 # setup for miniconda
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+if command -v conda &> /dev/null;then
+  eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+fi
 
 # setup for direnv
-eval "$(direnv hook zsh)"
+if command -v direnv &> /dev/null;then
+  eval "$(direnv hook zsh)"
+fi
