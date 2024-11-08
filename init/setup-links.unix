@@ -16,6 +16,7 @@ fi
 if command -v zsh &> /dev/null ;then
     ln -fs $DOTFILES/sh/.zshrc $HOME/.zshrc
     ln -fs $DOTFILES/sh/.zsh_aliases $HOME/.zsh_aliases
+    ln -fs $DOTFILES/sh/.zsh_plugins.txt $HOME/.zsh_plugins.txt
     ln -fs $DOTFILES/sh/.p10k.zsh $HOME/.p10k.zsh
 fi
 
