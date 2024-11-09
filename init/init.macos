@@ -46,7 +46,7 @@ fi
 
 # Setup docker
 if ! command -v docker &> /dev/null ;then
-    brew install docker
+    brew install --cask docker
 fi
 
 # Setup fonts
@@ -58,8 +58,8 @@ brew install ripgrep \
              antidote
 
 # Setup gui apps
-bred tap homebrew/cask-sersions
 brew install --cask visual-studio-code \
+                    karabiner-elements \
                     arc \
                     warp \
                     mpv
