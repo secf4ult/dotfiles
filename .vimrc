@@ -2,22 +2,13 @@ set encoding=UTF-8
 set nocompatible              " be improved, required
 filetype off                  " required
 
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'flazz/vim-colorschemes'
-" Plugin 'editorconfig/editorconfig-vim'
-" Plugin 'itchyny/lightline.vim'
-" Plugin 'neoclide/coc.nvim'
-" Plugin 'justinmk/vim-sneak'
-" Plugin 'ryanoasis/vim-devicons'
-" Plugin 'sheerun/vim-polyglot'
-" Plugin 'rhysd/wandbox-vim'
-" Run :PluginInstall to install plugins
-
 " turn on filetype detection, load "ftplugin.vim" and "indent.vim"
 syntax on
 
 " set line number
 set nu
+" show relative line number
+set relativenumber
 " set tab
 " how existing tab with 4 spaces width
 set tabstop=4
@@ -49,3 +40,6 @@ set cursorline
 " set statusline plugin
 set laststatus=2
 set noshowmode
+
+" vim-sneak
+let g:sneak#label = 1

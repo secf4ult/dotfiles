@@ -12,11 +12,11 @@ alias rmrf='rm -rf'
 alias cp='cp -v'
 
 # list
-alias l='ls -lCFh'
-alias la='ls -laFh'
-alias ld='ls -lhd'
-alias ll='ls -lhF'
-alias lls='ls -lhs'
+alias l='ls -lGCFh'
+alias la='ls -lGaFh'
+alias ld='ls -lGhd'
+alias ll='ls -lGhF'
+alias lls='ls -lGhs'
 
 # directory
 alias p='pwd'
@@ -65,7 +65,8 @@ alias xp='xargs -p'
 alias sede='sed -r'
 
 # git
-alias gst='git status'
+alias g='git'
+alias gs='git status'
 alias gpu='git push'
 alias gpl='git pull --rebase --autostash'
 

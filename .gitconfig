@@ -8,3 +8,6 @@
     unhide = update-index --no-assume-unchanged
     hidden = !git ls-files -v | grep '^h' | cut -c3-
     unhide-all = !git ls-files -v | grep '^h' | cut -c3- | xargs git unhide --
+    log = log --all --graph --decorate --oneline
+[init]
+	defaultBranch = main
